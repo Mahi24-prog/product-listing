@@ -9,6 +9,7 @@ import {
   IconButton,
   useTheme,
   SelectChangeEvent,
+  Stack,
 } from "@mui/material";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
@@ -52,82 +53,96 @@ export default function PLPToolbar({
   };
 
   return (
-    <Box
+    <Stack
       sx={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        mb: 3,
-        pb: 2,
         borderBottom: `1px solid ${theme.palette.divider}`,
         position: "sticky",
-        top: 64,
+        top: 54,
         bgcolor: "background.default",
         zIndex: 10,
         pt: 2,
+        mb: 2,
+        pb: 1,
+        boxShadow: "rgba(0, 0, 0, 0.05) 0px 1px 2px 0px",
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center" }}>
-        <IconButton
-          sx={{ display: { md: "none" }, mr: 1 }}
-          onClick={() => setFilterDrawerOpen(true)}
-          color="primary"
-        >
-          <FilterListIcon />
-        </IconButton>
-        <Typography variant="body1" color="text.secondary">
-          <strong>{totalResults}</strong> Results
-        </Typography>
-      </Box>
-
-      <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-        {Pagination}
-        <FormControl size="small" sx={{ minWidth: 150, position: "relative" }}>
-          <Select
-            value={currentSortVal}
-            onChange={handleSortChange}
-            displayEmpty
-            aria-label="Sort by"
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mb: 1,
+          p: 1,
+          borderBottom: `1px solid ${theme.palette.divider}`,
+        }}
+      >
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <IconButton
+            sx={{ display: { md: "none" }, mr: 1 }}
+            onClick={() => setFilterDrawerOpen(true)}
+            color="primary"
           >
-            <MenuItem value="">
-              <em>Sort By...</em>
-            </MenuItem>
-            {sortOptions.map((opt) => (
-              <MenuItem
-                key={`${opt.field}-${opt.direction}`}
-                value={`${opt.field}-${opt.direction}`}
-              >
-                {opt.label}
+            <FilterListIcon />
+          </IconButton>
+          <Typography variant="body1" color="text.secondary">
+            <strong>{totalResults}</strong> Results
+          </Typography>
+        </Box>
+
+        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          <FormControl
+            size="small"
+            sx={{ minWidth: 150, position: "relative" }}
+          >
+            <Select
+              value={currentSortVal}
+              onChange={handleSortChange}
+              displayEmpty
+              aria-label="Sort by"
+            >
+              <MenuItem value="">
+                <em>Sort By...</em>
               </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+              {sortOptions.map((opt) => (
+                <MenuItem
+                  key={`${opt.field}-${opt.direction}`}
+                  value={`${opt.field}-${opt.direction}`}
+                >
+                  {opt.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
-        <Box
-          sx={{
-            display: { xs: "none", sm: "flex" },
-            border: `1px solid ${theme.palette.divider}`,
-            borderRadius: 1,
-          }}
-        >
-          <IconButton
-            size="small"
-            color={viewMode === "grid" ? "info" : "default"}
-            onClick={() => setViewMode("grid")}
-            sx={{ borderRadius: 0 }}
+          <Box
+            sx={{
+              display: { xs: "none", sm: "flex" },
+              border: `1px solid ${theme.palette.divider}`,
+              borderRadius: 1,
+            }}
           >
-            <ViewModuleIcon />
-          </IconButton>
-          <IconButton
-            size="small"
-            color={viewMode === "list" ? "info" : "default"}
-            onClick={() => setViewMode("list")}
-            sx={{ borderRadius: 0 }}
-          >
-            <ViewListIcon />
-          </IconButton>
+            <IconButton
+              size="small"
+              color={viewMode === "grid" ? "info" : "default"}
+              onClick={() => setViewMode("grid")}
+              sx={{ borderRadius: 0 }}
+            >
+              <ViewModuleIcon />
+            </IconButton>
+            <IconButton
+              size="small"
+              color={viewMode === "list" ? "info" : "default"}
+              onClick={() => setViewMode("list")}
+              sx={{ borderRadius: 0 }}
+            >
+              <ViewListIcon />
+            </IconButton>
+          </Box>
         </Box>
       </Box>
-    </Box>
+      <Stack direction="row" spacing={1} sx={{ justifyContent: "end" }}>
+        {Pagination}
+      </Stack>
+    </Stack>
   );
 }

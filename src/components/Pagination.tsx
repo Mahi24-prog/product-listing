@@ -39,7 +39,7 @@ export default function Pagination({
         page={currentPage}
         onChange={handleChange}
         color="primary"
-        size="large"
+        size="medium"
         showFirstButton
         showLastButton
         siblingCount={0}

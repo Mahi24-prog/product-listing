@@ -201,6 +201,9 @@ export default function Filters({ facets, isLoading }: FiltersProps) {
             >
               {bounds ? (
                 <PriceSlider
+                  key={`${facet.field}-${
+                    searchParams.get(`${facet.field}.low`) ?? bounds.min
+                  }-${searchParams.get(`${facet.field}.high`) ?? bounds.max}`}
                   min={bounds.min}
                   max={bounds.max}
                   initialValue={[
